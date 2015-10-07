@@ -43,10 +43,13 @@ class CapCommand extends Command
         $rows = array();
         $tableHelper->setHeaders(array('Lap (km)', 'Time (hh:mm:ss)', 'Speed: ' . $speed->getV() . ' km/h'));
 
-        for ($i = 1; $i <= $distance; $i++) {
+        for ($i = 1; $i < $distance; $i++) {
             $speedLap = new Speed($i, null, $speed->getV(), new TimeConvertor());
             $rows[] = array($i, $speedLap->getT());
         }
+
+        $speedLap = new Speed($distance, null, $speed->getV(), new TimeConvertor());
+        $rows[] = array($distance, $time);
 
         $tableHelper->setRows($rows)->render();
     }
